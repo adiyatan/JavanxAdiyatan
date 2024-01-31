@@ -120,7 +120,7 @@
     <div class="container">
         <div class="loading-container">
             <div class="loading-text">Adiyatan x Javan</div>
-            <span class="loading-span">Present</span>
+            <span class="loading-span">Mempersembahkan</span>
 
             <div class="loading-bar-container">
                 <div id="myBar" class="loading-bar"></div>
@@ -129,7 +129,7 @@
             <p id="myP"><span id="demo"></span></p>
 
             <!-- Tambahkan event onclick untuk memanggil fungsi showLoading() -->
-            <button class="btn btn-primary" onclick="showLoading()">Process</button>
+            <button class="btn btn-primary" onclick="showLoading()">Mulai!</button>
         </div>
     </div>
 
@@ -163,14 +163,16 @@
                     elem.style.width = width + '%';
 
                     // Map width to corresponding label
-                    var labels = ["Checking memory", "Checking task is late", "Checking point", "Checking time",
-                        "Checking courage", "Checking salary", "Turning on windows", "Checking Taiga", "Doing Task",
-                        "Checking Code", "Closing Task", "Finish"
-                    ]
+                    var labels = ["Memeriksa memori", "Memeriksa tugas yang terlambat", "Memeriksa poin", "Memeriksa waktu",
+                        "Memeriksa keberanian", "Memeriksa gaji", "Menyalakan Windows", "Memeriksa Taiga",
+                        "Melakukan tugas",
+                        "Memeriksa kode", "Menyelesaikan tugas", "Selesai"
+                    ];
+
                     var currentLabelIndex = Math.floor(width / (100 / labels.length));
                     var currentLabel = labels[currentLabelIndex];
                     if (currentLabel === undefined) {
-                        currentLabel = "Compiling memories...";
+                        currentLabel = "Compiling kenangan...";
                     }
                     document.getElementById("demo").innerHTML = currentLabel;
                 }

@@ -19,3 +19,10 @@ Route::get('/', function () {
 });
 
 Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
+
+use App\Http\Controllers\ThanksgivingController;
+
+Route::prefix('thanksgiving')->group(function () {
+    Route::get('/', [ThanksgivingController::class, 'index']);
+    Route::post('/get-recommendations', [ThanksgivingController::class, 'getRecommendations']);
+});

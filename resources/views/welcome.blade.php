@@ -7,6 +7,7 @@
     <title>Introduction</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
         body {
             margin: 0;
@@ -14,7 +15,8 @@
             background-color: #000;
             color: #fff;
             font-family: 'Cursive', sans-serif;
-            background-image: url('public/storage/1.jpg'); /* Ganti dengan path yang sesuai */
+            background-image: url('public/storage/1.jpg');
+            /* Ganti dengan path yang sesuai */
             background-size: cover;
             overflow: hidden;
         }
@@ -127,12 +129,34 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Layar hitam transparan */
-            pointer-events: none; /* Layar hitam tidak menanggapi event mouse */
+            background-color: rgba(0, 0, 0, 0.7);
+            pointer-events: none;
         }
 
         #overlay:hover {
             display: none;
+        }
+
+        .swal2-popup {
+            font-family: 'Cursive', sans-serif;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .swal2-title {
+            color: #ffa500;
+        }
+
+        .swal2-content {
+            color: #fff;
+        }
+
+        .swal2-actions .btn-primary {
+            background-color: #ffa500;
+        }
+
+        .swal2-actions .btn-secondary {
+            background-color: #808080;
         }
     </style>
 </head>
@@ -151,7 +175,7 @@
     </div>
     <div class="toast position-absolute end-0 bottom-0" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-body">
-            Confused about which one to choose? Please read the instructions by pressing the "show" button below
+            Bingung pilih yang mana? tekan tombol "Show" untuk penjelasan tombol
             <div class="mt-2 pt-2 border-top">
                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">Show</button>
@@ -235,7 +259,7 @@
 
         var i = 0;
         var txt1 =
-            "A  journey   has   begun > Challenges are coming... > Happiness and sadness have passed.. > Let me present > == A farewell == < by adiyatan";
+            "Sebuah perjalanan telah dimulai > Tantangan datang... > Kebahagiaan dan kesedihan telah berlalu.. > Izinkan saya mempersembahkan > == A Farewell == < by adiyatan";
         var speed = 100;
         typeWriter();
 
@@ -330,7 +354,66 @@
         }
 
         function buttonClick(type) {
-            alert('Button clicked: ' + type);
+            if (type === 'gold') {
+                Swal.fire({
+                    title: 'Apakah Anda sudah melihat story?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Terima kasih sudah membaca story!',
+                            text: 'Anda akan dipindahkan ke halaman thanksgiving.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            window.location.href = '/thanksgiving';
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire({
+                            title: 'Apakah Anda berkenan membuka story?',
+                            icon: 'question',
+                            showCancelButton: true,
+                            confirmButtonText: 'Ya',
+                            cancelButtonText: 'Tidak'
+                        }).then((secondaryResult) => {
+                            if (secondaryResult.isConfirmed) {
+                                Swal.fire({
+                                    title: 'Terima kasih sudah mau membaca!',
+                                    text: 'Anda akan dipindahkan ke halaman story dengan tab baru. Setelah membaca, silakan kembali ke sini.',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.open('/story', '_blank');
+                                    Swal.fire({
+                                        title: 'Terima kasih sudah membaca story!',
+                                        text: 'Anda akan dipindahkan ke halaman thanksgiving.',
+                                        icon: 'success',
+                                        confirmButtonText: 'OK'
+                                    }).then(() => {
+                                        window.location.href = '/thanksgiving';
+                                    });
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Memindahkan Anda ke halaman thanksgiving',
+                                    icon: 'info'
+                                }).then(() => {
+                                    window.location.href = '/thanksgiving';
+                                });
+                            }
+                        });
+                    }
+                });
+            } else if (type === 'silver') {
+                // Replace this alert with your desired action for the 'silver' button
+                Swal.fire({
+                    title: 'Button clicked: silver',
+                    icon: 'info'
+                });
+            }
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
