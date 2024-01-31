@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('thanksgiving', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
             $table->string('name');
+            $table->uuid('idDetail')->unique();
             $table->timestamps();
         });
     }

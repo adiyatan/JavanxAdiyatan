@@ -23,19 +23,14 @@ class ThanksgivingController extends Controller
     }
 
 
-    public function showDetail($encryptedId)
+    public function showDetail($id)
     {
-        $recommendationId = base64_decode($encryptedId);
+        $data = Thanksgiving::where('idDetail', $id)->first();
 
-        // Add debugging statements
-        dd($encryptedId, $recommendationId);
-
-        $recommendation = Thanksgiving::find($recommendationId);
-
-        if (!$recommendation) {
+        if (!$data) {
             abort(404);
         }
 
-        return view('thanksgiving.detail', compact('recommendation'));
+        return view('thanksgiving.detail', compact('data'));
     }
 }

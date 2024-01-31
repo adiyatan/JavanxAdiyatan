@@ -65,6 +65,7 @@ class thanksgivingSeeder extends Seeder
         foreach ($names as $name) {
             Thanksgiving::create([
                 'name' => $name,
+                'idDetail' => Str::uuid(),
             ]);
         }
     }

@@ -126,6 +126,7 @@
                         if (data.length > 0) {
                             $.each(data, function(index, recommendation) {
                                 var recommendationElement = $('<div class="recommendation"></div>');
+                                recommendationElement.data('idDetail', recommendation.idDetail);
                                 recommendationElement.text(recommendation.name);
                                 recommendationsContainer.append(recommendationElement);
                             });
@@ -147,6 +148,17 @@
         function searchClicked() {
             var searchInput = $('#searchInput').val();
             alert("Performing search for: " + searchInput);
+        }
+
+        $(document).ready(function() {
+            $('#recommendationsContainer').on('click', '.recommendation', function() {
+                var idDetail = $(this).data('idDetail');
+                redirectToDetail(idDetail);
+            });
+        });
+
+        function redirectToDetail(idDetail) {
+            window.location.href = '/thanksgiving/' + idDetail + '/detail';
         }
     </script>
 
