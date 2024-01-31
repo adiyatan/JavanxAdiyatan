@@ -25,4 +25,5 @@ use App\Http\Controllers\ThanksgivingController;
 Route::prefix('thanksgiving')->group(function () {
     Route::get('/', [ThanksgivingController::class, 'index']);
     Route::post('/get-recommendations', [ThanksgivingController::class, 'getRecommendations']);
+    Route::get('/{encryptedId}/detail', [ThanksgivingController::class, 'showDetail']);
 });

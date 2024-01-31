@@ -108,6 +108,11 @@
             recommendationsContainer.html('');
             addedRecommendations = [];
 
+            if (/[^a-zA-Z0-9\s]/.test(searchInput)) {
+                recommendationsContainer.html('<p>Hey, jangan hack web ini!</p>');
+                return;
+            }
+
             if (searchInput.length > 0) {
                 $.ajax({
                     url: '/thanksgiving/get-recommendations',
@@ -123,10 +128,10 @@
                                 var recommendationElement = $('<div class="recommendation"></div>');
                                 recommendationElement.text(recommendation.name);
                                 recommendationsContainer.append(recommendationElement);
-                                addedRecommendations.push(recommendation.name);
                             });
                         } else {
-                            recommendationsContainer.html('<p>Tidak ada entri yang ditemukan untuk input: ' + searchInput +
+                            recommendationsContainer.html('<p>Tidak ada entri yang ditemukan untuk input: ' +
+                                searchInput +
                                 '</p>');
                         }
                     },

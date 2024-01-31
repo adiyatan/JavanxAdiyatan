@@ -17,12 +17,25 @@ class ThanksgivingController extends Controller
     {
         $searchInput = $request->input('searchInput');
 
-        // Lakukan pencarian di tabel recommendations berdasarkan nama
-        $recommendations = thanksgiving::where(function ($query) use ($searchInput) {
-            $query->where('name', 'like', '%' . $searchInput . '%');
-            // Tambahkan logika pencarian lainnya jika diperlukan
-        })->get();
+        $recommendations = Thanksgiving::where('name', 'like', '%' . $searchInput . '%')->get();
 
         return response()->json($recommendations);
+    }
+
+
+    public function showDetail($encryptedId)
+    {
+        $recommendationId = base64_decode($encryptedId);
+
+        // Add debugging statements
+        dd($encryptedId, $recommendationId);
+
+        $recommendation = Thanksgiving::find($recommendationId);
+
+        if (!$recommendation) {
+            abort(404);
+        }
+
+        return view('thanksgiving.detail', compact('recommendation'));
     }
 }

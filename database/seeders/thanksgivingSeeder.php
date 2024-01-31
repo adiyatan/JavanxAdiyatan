@@ -2,19 +2,20 @@
 
 namespace Database\Seeders;
 
+use App\Models\Thanksgiving;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 
-class thanksgiving extends Seeder
+class thanksgivingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run()
     {
-        // Hapus data existing
-        \App\Models\thanksgiving::truncate();
+        thanksgiving::truncate();
 
         $names = [
             'Nur rohman',
@@ -58,13 +59,12 @@ class thanksgiving extends Seeder
             'Bayu Hendra Winata',
             'Wisnu Manupraba',
             'Indra Sakti',
+            'Lubnatul Hilwah',
         ];
 
         foreach ($names as $name) {
-            DB::table('thanksgiving')->insert([
+            Thanksgiving::create([
                 'name' => $name,
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
         }
     }
