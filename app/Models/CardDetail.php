@@ -12,6 +12,7 @@ class CardDetail extends Model
     protected $table = 'card_details';
 
     protected $fillable = [
+        'name',
         'idThanksGiving',
         'description',
         'isMentor',

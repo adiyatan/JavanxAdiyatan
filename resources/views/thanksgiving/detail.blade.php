@@ -113,19 +113,21 @@
             border-radius: 5px;
         }
 
+        .list-group-item {
+            background-color: #222;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .list-group-item:hover {
+            background-color: #333;
+            color: white
+        }
+
         .list-group-item.active {
             background-color: #555;
-        }
-
-        .list-group-item.active:hover {
-            background-color: #555;
-        }
-
-        .list-group-item.active a {
-            color: #ffd700;
-            text-decoration: none;
-            transition: color 0.3s;
-            text-shadow: 0 0 10px #ffd700;
         }
     </style>
 </head>
@@ -136,21 +138,26 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="card">
-                    <img src="{{ url('storage/1.png') }}" class="card-img-top" alt="...">
+                    <img src="{{ url('storage/role/' . $data->image) }}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Card Title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
+                        <h5 class="card-title">{{ $data->name }}</h5>
+                        <p class="card-text">{{ $data->description }}</p>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <span data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Penghargaan untuk seorang mentor" class="badge bg-warning">Mentor</span>
-                            <span data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Penghargaan untuk seorang leader" class="badge bg-danger">Leader</span>
-                            <span data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Penghargaan untuk kerja sama tim yang baik" class="badge bg-success">Team
-                                work</span>
+                            @if ($data->isMentor)
+                                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="Penghargaan untuk seorang mentor" class="badge bg-warning">Mentor</span>
+                            @endif
+                            @if ($data->isLeader)
+                                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="Penghargaan untuk seorang leader" class="badge bg-danger">Leader</span>
+                            @endif
+                            @if ($data->isTeam)
+                                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="Penghargaan untuk kerja sama tim yang baik" class="badge bg-success">Team
+                                    work</span>
+                            @endif
                         </li>
                     </ul>
                     <div class="card-body">
@@ -162,7 +169,10 @@
                                 <a class="list-group-item list-group-item-action" href="#list-item-2">Ucapan
                                     Terimakasih</a>
                                 <a class="list-group-item list-group-item-action" href="#list-item-3">Penutup</a>
-                                <a class="list-group-item list-group-item-action" href="#list-item-4">Penghargaan</a>
+                                @if ($data->isArchived)
+                                    <a class="list-group-item list-group-item-action"
+                                        href="#list-item-4">Penghargaan</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -170,32 +180,33 @@
             </div>
             <div class="col-md-9">
                 <div class="luxurious-container">
-                    <p>Halo $name, <br>
-                        terima kasih sudah meluangkan waktu untuk membaca pesan terakhir ini. Saya ingin
-                        mengucapkan terima kasih atas dedikasi dan kontribusi $name selama
-                        masa magang di PT
-                        Javan Cipta Solusi. Ini adalah ungkapan terima kasih saya atas partisipasi $name yang
-                        berarti. Saya harap pengalaman ini memberikan kebahagiaan dan kenangan indah untuk
-                        $name Selamat membaca dan semoga kesuksesan selalu menyertai $name di masa depan
-                    </p>
+                    {!! $data->textPembukaan !!}
+                    <br>
+                    <br>
+                    <hr>
                     <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0"
                         class="scrollspy-example" tabindex="0">
                         <h4 id="list-item-1">Kesan dan pesan</h4>
-                        <p></p>
+                        <p>{{ $data->textKesan }}</p>
                         <h4 id="list-item-2">Ucapan Terimakasih</h4>
-                        <p></p>
+                        <p>{{ $data->textThank }}</p>
                         <h4 id="list-item-3">Penutup</h4>
-                        <p></p>
-                        <h4 id="list-item-4">Penghargaan</h4>
-                        <p>Terima kasih telah membaca hingga bagian ini. Saya ingin memberikan penghargaan berupa
-                            sertifikat sebagai tanda terima kasih. Meskipun saat ini sertifikat ini mungkin belum
-                            memiliki nilai formal, namun saya memberikannya sebagai kenangan istimewa antara kita dan
-                            sebagai simbol kebermaknaan Anda dalam perjalanan peningkatan ilmu yang luar biasa ini.
-                            Silakan tekan tombol download untuk mendapatkan sertifikatnya.</p>
-                        <button id="downloadCertificateBtn" class="btn btn-warning mt-3"
-                            style="border-radius: 10px; padding: 10px 20px; font-size: 18px;">
-                            <i class="fas fa-download" style="margin-right: 10px;"></i> Download Certificate
-                        </button>
+                        <p>{{ $data->textPenutup }}</p>
+                        <hr>
+                        @if ($data->isArchived)
+                            <br>
+                            <h4 id="list-item-4">Penghargaan</h4>
+                            <p>Terima kasih telah membaca hingga bagian ini. Saya ingin memberikan penghargaan berupa
+                                sertifikat sebagai tanda terima kasih. Meskipun saat ini sertifikat ini mungkin belum
+                                memiliki nilai formal, namun saya memberikannya sebagai kenangan istimewa antara kita
+                                dan
+                                sebagai simbol kebermaknaan Anda dalam perjalanan peningkatan ilmu yang luar biasa ini.
+                                Silakan tekan tombol download untuk mendapatkan sertifikatnya.</p>
+                            <button id="downloadCertificateBtn" class="btn btn-warning mt-3"
+                                style="border-radius: 10px; padding: 10px 20px; font-size: 18px;">
+                                <i class="fas fa-download" style="margin-right: 10px;"></i> Download Certificate
+                            </button>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -223,7 +234,7 @@
             });
 
             document.getElementById('downloadCertificateBtn').addEventListener('click', function() {
-                var certificateName = 'tes.pdf';
+                var certificateName = '{{ $data->filePenghargaan }}';
 
                 var downloadURL = '/download-certificate/' + certificateName;
 

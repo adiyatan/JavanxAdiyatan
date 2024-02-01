@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/download-certificate/{name}', function ($name) {
-    $filePath = storage_path("sertifikat/{$name}.pdf");
+    $filePath = public_path("sertifikat/{$name}");
 
     $downloadFileName = "Certificate {$name}.pdf";
 

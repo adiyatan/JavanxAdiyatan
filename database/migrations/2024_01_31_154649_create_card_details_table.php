@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('card_details', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->uuid('idThanksGiving');
             $table->foreign('idThanksGiving')->references('idDetail')->on('thanksgiving');
             $table->text('description');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->boolean('isTeam')->default(true);
             $table->boolean('isArchived')->default(false);
             $table->string('image')->nullable();
+            $table->text('textPembukaan')->nullable();
             $table->text('textKesan')->nullable();
             $table->text('textThank')->nullable();
             $table->text('textPenutup')->nullable();
