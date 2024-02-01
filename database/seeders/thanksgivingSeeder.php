@@ -15,7 +15,7 @@ class thanksgivingSeeder extends Seeder
      */
     public function run()
     {
-        thanksgiving::truncate();
+        DB::table('thanksgiving')->delete();
 
         $names = [
             'Nur rohman',
